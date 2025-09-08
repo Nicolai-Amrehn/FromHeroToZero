@@ -16,18 +16,18 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @Controller
-public class WorkspaceController {
+public class CountryController {
 
     private final CountryService countryService;
     private final Mapper mapper;
 
     @Autowired
-    public WorkspaceController(CountryService countryService, Mapper mapper) {
+    public CountryController(CountryService countryService, Mapper mapper) {
         this.countryService = countryService;
         this.mapper = mapper;
     }
 
-    @GetMapping("/workspace")
+    @GetMapping("/countries")
     String workspace(Model model) {
         List<CountryDTO> countries = countryService.getAllCountries()
                 .stream()
@@ -35,7 +35,14 @@ public class WorkspaceController {
                 .collect(toList());
         model.addAttribute("countries", countries);
         model.addAttribute("country", new Country());
-        return "workspace";
+        return "countries";
+    }
+
+    @PostMapping("/countries/add")
+    String addCountry(@ModelAttribute("country") CountryDTO countryDTO) {
+        Country country = mapper.toCountry(countryDTO);
+        countryService.createCountry(country.getName());
+        return "redirect:/countries";
     }
 
 }
