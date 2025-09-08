@@ -1,9 +1,8 @@
 package com.nra.FromHeroToZero.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Country {
@@ -11,6 +10,8 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    @OneToMany(mappedBy = "country")
+    private List<Measurement> measurements;
 
     public Country() {
     }
@@ -19,8 +20,9 @@ public class Country {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
+    public Country(String name, List<Measurement> measurements) {
+        this.name = name;
+        this.measurements = measurements;
     }
 
     public String getName() {
@@ -31,11 +33,19 @@ public class Country {
         this.name = name;
     }
 
+    public List<Measurement> getMeasurements() {
+        return measurements;
+    }
+
+    public void setMeasurements(List<Measurement> measurements) {
+        this.measurements = measurements;
+    }
+
     @Override
     public String toString() {
         return "Country{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
+                ", measurements=" + measurements +
                 '}';
     }
 }
