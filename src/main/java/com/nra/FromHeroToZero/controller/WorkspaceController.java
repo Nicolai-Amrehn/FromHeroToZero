@@ -42,8 +42,9 @@ public class WorkspaceController {
     }
 
     @PostMapping("/countries/add")
-    String addCountry(@ModelAttribute String name, Model model) {
-        countryService.createCountry(name);
+    String addCountry(@ModelAttribute("country") CountryDTO countryDTO) {
+        Country country = mapper.toCountry(countryDTO);
+        countryService.createCountry(country.getName());
         return "redirect:/workspace";
     }
 
