@@ -15,25 +15,24 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 
 @Controller
-public class HomeController {
+public class WorkspaceController {
 
     private final CountryService countryService;
     private final Mapper mapper;
 
     @Autowired
-    public HomeController(CountryService countryService, Mapper mapper) {
+    public WorkspaceController(CountryService countryService, Mapper mapper) {
         this.countryService = countryService;
         this.mapper = mapper;
     }
 
-    @GetMapping("/")
-    String home() {
-        return "index";
+    @GetMapping("/workspace")
+    String workspace(Model model) {
+        List<CountryDTO> countries = countryService.getAllCountries()
+                .stream()
+                .map(mapper::toCountryDTO)
+                .collect(toList());
+        model.addAttribute("countries", countries);
+        return "workspace";
     }
-
-    @GetMapping("/login")
-    String login() {
-        return "login";
-    }
-
 }
