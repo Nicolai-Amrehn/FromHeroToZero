@@ -1,5 +1,4 @@
 package com.nra.FromHeroToZero.dto;
 
-public record CountryDTO(
-        String name
-) {}
+public record CountryDTO(String name) {
+}
