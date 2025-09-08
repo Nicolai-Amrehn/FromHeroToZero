@@ -26,12 +26,23 @@
             </thead>
             <tbody id="countries">
             <tr th:each="country : ${countries}">
-                <td th:text="${country.id}"></td>
+                <td th:text="${country.name}"></td>
             </tr>
             </tbody>
         </table>
 
-        <a class="btn btn-primary mb-4" href="/countries/add" role="button">Add New Country</a>
+        <div class="container mt-5">
+            <form role="form" th:action="@{/countries/add}" th:object="${country}" method="post" class="mb-4">
+                <legend>Add New Country</legend>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Name" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add Country</button>
+            </form>
+        </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
