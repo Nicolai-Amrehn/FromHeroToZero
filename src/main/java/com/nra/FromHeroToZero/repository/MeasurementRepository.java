@@ -13,4 +13,5 @@ public interface MeasurementRepository extends JpaRepository<Measurement, Long> 
 
     List<Measurement> findByCountryId(Long countryId);
 
+    List<Measurement> findTop10ByYearOrderByValueDesc(int year);
 }

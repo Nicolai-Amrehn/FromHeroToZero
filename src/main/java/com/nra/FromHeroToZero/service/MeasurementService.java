@@ -8,6 +8,7 @@ import com.nra.FromHeroToZero.infrastructure.Mapper;
 import com.nra.FromHeroToZero.repository.MeasurementRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -41,4 +42,12 @@ public class MeasurementService {
         Measurement measurement = mapper.toMeasurement(measurementInputDTO);
         measurementRepository.save(measurement);
     }
+
+    public List<MeasurementDTO> getTopTenMeasurements() {
+        return measurementRepository.findTop10ByYearOrderByValueDesc(LocalDate.now().getYear())
+                .stream()
+                .map(mapper::toMeasurementDTO)
+                .collect(toList());
+    }
+
 }
