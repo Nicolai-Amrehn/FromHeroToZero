@@ -27,4 +27,8 @@ public class MeasurementService {
         return measurementRepository.findAll();
     }
 
+    public void createMeasurement(Measurement measurement) {
+        measurementRepository.save(measurement);
+    }
+
 }

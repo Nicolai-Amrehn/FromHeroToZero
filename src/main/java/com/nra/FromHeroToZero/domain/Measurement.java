@@ -8,11 +8,9 @@ public class Measurement {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
-    int value;
+    Double value;
     Status status;
     int year;
-    String reviewedBy;
-    String submittedBy;
     @ManyToOne
     @JoinColumn(name = "country_id")
     Country country;
@@ -20,20 +18,22 @@ public class Measurement {
     public Measurement() {
     }
 
-    public Measurement(int value, Status status, int year, String reviewedBy, String submittedBy, Country country) {
+    public Measurement(Double value, Status status, int year, Country country) {
         this.value = value;
         this.status = status;
         this.year = year;
-        this.reviewedBy = reviewedBy;
-        this.submittedBy = submittedBy;
         this.country = country;
     }
 
-    public int getValue() {
+    public Long getId() {
+        return id;
+    }
+
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
@@ -53,22 +53,6 @@ public class Measurement {
         this.year = year;
     }
 
-    public String getReviewedBy() {
-        return reviewedBy;
-    }
-
-    public void setReviewedBy(String reviewedBy) {
-        this.reviewedBy = reviewedBy;
-    }
-
-    public String getSubmittedBy() {
-        return submittedBy;
-    }
-
-    public void setSubmittedBy(String submittedBy) {
-        this.submittedBy = submittedBy;
-    }
-
     public Country getCountry() {
         return country;
     }
@@ -80,11 +64,10 @@ public class Measurement {
     @Override
     public String toString() {
         return "Measurement{" +
-                "value=" + value +
+                "id=" + id +
+                ", value=" + value +
                 ", status=" + status +
                 ", year=" + year +
-                ", reviewedBy='" + reviewedBy + '\'' +
-                ", submittedBy='" + submittedBy + '\'' +
                 ", country=" + country +
                 '}';
     }
