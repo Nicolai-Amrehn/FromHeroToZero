@@ -29,13 +29,9 @@ public class WorkspaceController {
 
     @GetMapping("/workspace")
     String workspace(Model model) {
-        List<CountryDTO> countries = countryService.getAllCountries()
-                .stream()
-                .map(mapper::toCountryDTO)
-                .collect(toList());
+        List<CountryDTO> countries = countryService.getAllCountries();
         model.addAttribute("countries", countries);
         model.addAttribute("country", new Country());
         return "workspace";
     }
-
 }

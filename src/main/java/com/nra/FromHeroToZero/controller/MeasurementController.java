@@ -2,7 +2,6 @@ package com.nra.FromHeroToZero.controller;
 
 import com.nra.FromHeroToZero.domain.Measurement;
 import com.nra.FromHeroToZero.dto.MeasurementDTO;
-import com.nra.FromHeroToZero.infrastructure.Mapper;
 import com.nra.FromHeroToZero.service.MeasurementService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +15,9 @@ import java.util.List;
 public class MeasurementController {
 
     MeasurementService measurementService;
-    private final Mapper mapper;
 
-    public MeasurementController(MeasurementService measurementService, Mapper mapper) {
+    public MeasurementController(MeasurementService measurementService) {
         this.measurementService = measurementService;
-        this.mapper = mapper;
     }
 
     @GetMapping("/measurements")
@@ -33,8 +30,7 @@ public class MeasurementController {
 
     @PostMapping("/measurements/add")
     public String addMeasurement(@ModelAttribute("measurement") MeasurementDTO measurementDTO) {
-        Measurement measurement = mapper.toMeasurement(measurementDTO);
-        measurementService.createMeasurement(measurement);
+        measurementService.createMeasurement(measurementDTO);
         return "redirect:/measurements";
     }
 
