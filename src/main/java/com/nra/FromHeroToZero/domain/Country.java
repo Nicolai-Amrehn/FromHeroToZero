@@ -25,6 +25,10 @@ public class Country {
         this.measurements = measurements;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

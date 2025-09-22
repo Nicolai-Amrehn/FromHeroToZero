@@ -3,11 +3,14 @@ package com.nra.FromHeroToZero.service;
 import com.nra.FromHeroToZero.domain.Country;
 import com.nra.FromHeroToZero.domain.Measurement;
 import com.nra.FromHeroToZero.dto.MeasurementDTO;
+import com.nra.FromHeroToZero.dto.MeasurementInputDTO;
 import com.nra.FromHeroToZero.infrastructure.Mapper;
 import com.nra.FromHeroToZero.repository.MeasurementRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class MeasurementService {
@@ -27,12 +30,15 @@ public class MeasurementService {
         return measurementRepository.findByCountry(country);
     }
 
-    public List<Measurement> getAllMeasurements() {
-        return measurementRepository.findAll();
+    public List<MeasurementDTO> getAllMeasurements() {
+        return measurementRepository.findAll()
+                .stream()
+                .map(mapper::toMeasurementDTO)
+                .collect(toList());
     }
 
-    public void createMeasurement(MeasurementDTO measurementDTO) {
-        Measurement measurement = mapper.toMeasurement(measurementDTO);
+    public void createMeasurement(MeasurementInputDTO measurementInputDTO) {
+        Measurement measurement = mapper.toMeasurement(measurementInputDTO);
         measurementRepository.save(measurement);
     }
 }
