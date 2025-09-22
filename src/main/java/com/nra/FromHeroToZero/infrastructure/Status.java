@@ -1,7 +1,10 @@
 package com.nra.FromHeroToZero.infrastructure;
 
 public enum Status {
-    APPROVED,
-    REJECTED,
-    PROPOSED
+    APPROVED("Approved"),
+    REJECTED("Rejected"),
+    PROPOSED("Proposed");
+
+    private final String status;
+    Status(String status) {this.status = status;}
 }
