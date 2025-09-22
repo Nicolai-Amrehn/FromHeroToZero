@@ -5,6 +5,7 @@ import com.nra.FromHeroToZero.domain.Measurement;
 import com.nra.FromHeroToZero.dto.MeasurementDTO;
 import com.nra.FromHeroToZero.dto.MeasurementInputDTO;
 import com.nra.FromHeroToZero.infrastructure.Mapper;
+import com.nra.FromHeroToZero.infrastructure.Status;
 import com.nra.FromHeroToZero.repository.MeasurementRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,14 +24,6 @@ public class MeasurementService {
         this.mapper = mapper;
     }
 
-    public List<Measurement> getAllMeasurementsByCountryId(Long countryId) {
-        return measurementRepository.findByCountryId(countryId);
-    }
-
-    public List<Measurement> getAllMeasurementsByCountry(Country country) {
-        return measurementRepository.findByCountry(country);
-    }
-
     public List<MeasurementDTO> getAllMeasurements() {
         return measurementRepository.findAll()
                 .stream()
@@ -40,14 +33,28 @@ public class MeasurementService {
 
     public void createMeasurement(MeasurementInputDTO measurementInputDTO) {
         Measurement measurement = mapper.toMeasurement(measurementInputDTO);
+        measurement.setStatus(Status.PROPOSED);
         measurementRepository.save(measurement);
     }
 
-    public List<MeasurementDTO> getTopTenMeasurements() {
-        return measurementRepository.findTop10ByYearOrderByValueDesc(LocalDate.now().getYear())
+    public List<MeasurementDTO> getMeasurementsInOrder() {
+        return measurementRepository.findByYearAndStatusOrderByValueDesc(LocalDate.now().getYear(), Status.APPROVED)
                 .stream()
                 .map(mapper::toMeasurementDTO)
                 .collect(toList());
+    }
+
+    public MeasurementDTO getMeasurementById(Long id) {
+        return mapper.toMeasurementDTO(measurementRepository.getReferenceById(id));
+    }
+
+    public void updateMeasurement(Long id, Status status) {
+        Measurement measurement = measurementRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid measurement ID: " + id));
+
+        measurement.setStatus(status);
+
+        measurementRepository.save(measurement);
     }
 
 }

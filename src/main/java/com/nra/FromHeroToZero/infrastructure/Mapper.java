@@ -38,6 +38,7 @@ public class Mapper {
 
     public MeasurementDTO toMeasurementDTO(Measurement measurement) {
         return new MeasurementDTO(
+                measurement.getId(),
                 measurement.getValue(),
                 measurement.getStatus(),
                 measurement.getYear(),

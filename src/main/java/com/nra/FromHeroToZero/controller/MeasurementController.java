@@ -1,17 +1,14 @@
 package com.nra.FromHeroToZero.controller;
 
-import com.nra.FromHeroToZero.domain.Country;
-import com.nra.FromHeroToZero.domain.Measurement;
 import com.nra.FromHeroToZero.dto.CountryDTO;
 import com.nra.FromHeroToZero.dto.MeasurementDTO;
 import com.nra.FromHeroToZero.dto.MeasurementInputDTO;
+import com.nra.FromHeroToZero.infrastructure.Status;
 import com.nra.FromHeroToZero.service.CountryService;
 import com.nra.FromHeroToZero.service.MeasurementService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,4 +41,19 @@ public class MeasurementController {
         return "redirect:/measurements";
     }
 
+    @GetMapping("/measurements/edit/{id}")
+    public String showEditForm(@PathVariable("id") Long id, Model model) {
+        MeasurementDTO measurement = measurementService.getMeasurementById(id);
+        List<CountryDTO> countries = countryService.getAllCountries();
+        model.addAttribute("measurement", measurement);
+        model.addAttribute("countries", countries);
+        return "measurement_edit";
+    }
+
+    @PostMapping("/measurements/edit/{id}")
+    public String editMeasurement(@PathVariable("id") Long id,
+                                  @RequestParam("status") Status status) {
+        measurementService.updateMeasurement(id, status);
+        return "redirect:/measurements";
+    }
 }

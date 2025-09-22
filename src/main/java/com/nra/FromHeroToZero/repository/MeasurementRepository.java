@@ -2,6 +2,7 @@ package com.nra.FromHeroToZero.repository;
 
 import com.nra.FromHeroToZero.domain.Country;
 import com.nra.FromHeroToZero.domain.Measurement;
+import com.nra.FromHeroToZero.infrastructure.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +14,5 @@ public interface MeasurementRepository extends JpaRepository<Measurement, Long> 
 
     List<Measurement> findByCountryId(Long countryId);
 
-    List<Measurement> findTop10ByYearOrderByValueDesc(int year);
+    List<Measurement> findByYearAndStatusOrderByValueDesc(int year, Status status);
 }
