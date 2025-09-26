@@ -28,7 +28,7 @@ public class CountryService {
     }
 
     public void createCountry(CountryDTO countryDTO) {
-        Country country = mapper.toCountry(countryDTO);
+        Country country = new Country(countryDTO.name());
         countryRepository.save(country);
     }
 }

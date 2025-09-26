@@ -23,10 +23,6 @@ public class Mapper {
         );
     }
 
-    public Country toCountry(CountryDTO countryDTO) {
-        return new Country(countryDTO.name());
-    }
-
     public MeasurementInputDTO toMeasurementInputDTO(Measurement measurement) {
         return new MeasurementInputDTO(
                 measurement.getValue(),
