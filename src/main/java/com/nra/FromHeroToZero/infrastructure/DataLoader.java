@@ -1,8 +1,7 @@
-package com.nra.FromHeroToZero.config;
+package com.nra.FromHeroToZero.infrastructure;
 
 import com.nra.FromHeroToZero.domain.Country;
 import com.nra.FromHeroToZero.domain.Measurement;
-import com.nra.FromHeroToZero.infrastructure.Status;
 import com.nra.FromHeroToZero.repository.CountryRepository;
 import com.nra.FromHeroToZero.repository.MeasurementRepository;
 import org.springframework.boot.CommandLineRunner;

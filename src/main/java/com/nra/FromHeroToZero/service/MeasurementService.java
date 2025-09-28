@@ -6,8 +6,10 @@ import com.nra.FromHeroToZero.dto.MeasurementDTO;
 import com.nra.FromHeroToZero.dto.MeasurementInputDTO;
 import com.nra.FromHeroToZero.infrastructure.Mapper;
 import com.nra.FromHeroToZero.infrastructure.Status;
+import com.nra.FromHeroToZero.repository.CountryRepository;
 import com.nra.FromHeroToZero.repository.MeasurementRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,13 +17,16 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @Service
+@Transactional
 public class MeasurementService {
     private final MeasurementRepository measurementRepository;
     private final Mapper mapper;
+    private final CountryRepository countryRepository;
 
-    public MeasurementService(MeasurementRepository measurementRepository, Mapper mapper) {
+    public MeasurementService(MeasurementRepository measurementRepository, Mapper mapper, CountryRepository countryRepository) {
         this.measurementRepository = measurementRepository;
         this.mapper = mapper;
+        this.countryRepository = countryRepository;
     }
 
     public List<MeasurementDTO> getAllMeasurements() {
@@ -32,7 +37,11 @@ public class MeasurementService {
     }
 
     public void createMeasurement(MeasurementInputDTO measurementInputDTO) {
-        Measurement measurement = mapper.toMeasurement(measurementInputDTO);
+        Country country = countryRepository.findById(measurementInputDTO.countryId())
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Invalid countryId: " + measurementInputDTO.countryId()
+                ));
+        Measurement measurement = mapper.toMeasurement(measurementInputDTO, country);
         measurement.setStatus(Status.PROPOSED);
         measurementRepository.save(measurement);
     }

@@ -17,8 +17,8 @@ import static com.nra.FromHeroToZero.infrastructure.Status.PROPOSED;
 @Controller
 public class MeasurementController {
 
-    MeasurementService measurementService;
-    CountryService countryService;
+    private final MeasurementService measurementService;
+    private final CountryService countryService;
 
     public MeasurementController(MeasurementService measurementService, CountryService countryService) {
         this.measurementService = measurementService;

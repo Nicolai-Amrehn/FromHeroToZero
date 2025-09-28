@@ -7,10 +7,10 @@ import jakarta.persistence.*;
 public class Measurement {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
-    Double value;
-    Status status;
-    int year;
+    private Long id;
+    private Double value;
+    private Status status;
+    private int year;
     @ManyToOne
     @JoinColumn(name = "country_id")
     Country country;
@@ -68,7 +68,6 @@ public class Measurement {
                 ", value=" + value +
                 ", status=" + status +
                 ", year=" + year +
-                ", country=" + country +
                 '}';
     }
 }

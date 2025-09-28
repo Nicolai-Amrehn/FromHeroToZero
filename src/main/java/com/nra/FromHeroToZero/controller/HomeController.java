@@ -1,9 +1,7 @@
 package com.nra.FromHeroToZero.controller;
 
 import com.nra.FromHeroToZero.dto.MeasurementDTO;
-import com.nra.FromHeroToZero.service.CountryService;
 import com.nra.FromHeroToZero.service.MeasurementService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +13,6 @@ public class HomeController {
 
     private final MeasurementService measurementService;
 
-    @Autowired
     public HomeController(MeasurementService measurementService) {
         this.measurementService = measurementService;
     }
@@ -27,9 +24,13 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/workspace")
+    String workspace() {
+        return "workspace";
+    }
+
     @GetMapping("/login")
     String login() {
         return "login";
     }
-
 }

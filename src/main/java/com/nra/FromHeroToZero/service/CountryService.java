@@ -5,12 +5,14 @@ import com.nra.FromHeroToZero.dto.CountryDTO;
 import com.nra.FromHeroToZero.infrastructure.Mapper;
 import com.nra.FromHeroToZero.repository.CountryRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
 @Service
+@Transactional
 public class CountryService {
     private final CountryRepository countryRepository;
     private final Mapper mapper;

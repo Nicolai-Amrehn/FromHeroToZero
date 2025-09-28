@@ -1,9 +1,7 @@
 package com.nra.FromHeroToZero.controller;
 
-import com.nra.FromHeroToZero.domain.Country;
 import com.nra.FromHeroToZero.dto.CountryDTO;
 import com.nra.FromHeroToZero.service.CountryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +15,6 @@ public class CountryController {
 
     private final CountryService countryService;
 
-    @Autowired
     public CountryController(CountryService countryService) {
         this.countryService = countryService;
     }
@@ -26,7 +23,7 @@ public class CountryController {
     String workspace(Model model) {
         List<CountryDTO> countries = countryService.getAllCountries();
         model.addAttribute("countries", countries);
-        model.addAttribute("country", new Country());
+        model.addAttribute("country", new CountryDTO(null, ""));
         return "countries";
     }
 

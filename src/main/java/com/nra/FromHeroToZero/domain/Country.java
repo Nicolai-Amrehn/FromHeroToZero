@@ -49,7 +49,6 @@ public class Country {
     public String toString() {
         return "Country{" +
                 "name='" + name + '\'' +
-                ", measurements=" + measurements +
                 '}';
     }
 }
